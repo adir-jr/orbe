@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * DESIGN TOKENS — ORBE Serviços (provisórios)
+ *
+ * Toda cor, raio e sombra da interface sai daqui. Para mudar a identidade
+ * visual, altere estes valores: os componentes usam apenas os nomes
+ * semânticos (ex.: bg-brand-600, text-ink-muted, border-line).
+ */
+@theme {
+  /* Tipografia (carregada em src/app/layout.tsx via next/font) */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Superfícies */
+  --color-canvas: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-subtle: #f0eee9;
+  --color-line: #e4e1da;
+  --color-line-strong: #cdc8bd;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Texto */
+  --color-ink: #15181d;
+  --color-ink-muted: #4c515b;
+  --color-ink-subtle: #737884;
+  --color-ink-inverse: #ffffff;
+
+  /* Marca — azul-petróleo (provisório) */
+  --color-brand-50: #eef6f6;
+  --color-brand-100: #d6eaea;
+  --color-brand-200: #acd5d4;
+  --color-brand-300: #7bbab9;
+  --color-brand-500: #23807d;
+  --color-brand-600: #176b69;
+  --color-brand-700: #115554;
+  --color-brand-800: #0e4443;
+  --color-brand-900: #0b3433;
+
+  /* Estados */
+  --color-success-50: #ecf8f0;
+  --color-success-700: #1b6b3a;
+  --color-warning-50: #fdf5e6;
+  --color-warning-200: #f3dba8;
+  --color-warning-700: #8a5208;
+  --color-danger-50: #fdf1f0;
+  --color-danger-600: #c0352b;
+  --color-danger-700: #a12a21;
+
+  /* Raios */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+
+  /* Sombras discretas */
+  --shadow-card: 0 1px 2px rgb(21 24 29 / 0.04), 0 1px 1px rgb(21 24 29 / 0.02);
+  --shadow-raised: 0 10px 30px -12px rgb(21 24 29 / 0.18), 0 2px 6px -2px rgb(21 24 29 / 0.06);
+
+  /* Animações */
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-orbit: orbit 28s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-brand-100);
+    color: var(--color-brand-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
